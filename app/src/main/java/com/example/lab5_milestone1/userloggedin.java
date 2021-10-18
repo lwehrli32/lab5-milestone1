@@ -2,7 +2,9 @@ package com.example.lab5_milestone1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -16,11 +18,20 @@ import com.google.android.material.navigation.NavigationBarView;
 public class userloggedin extends AppCompatActivity {
 
     TextView displayMsg;
+    SharedPreferences sharedPref;
+    int isloggedin = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userloggedin);
+
+        sharedPref = getApplicationContext().getSharedPreferences("lab5preferences", Context.MODE_PRIVATE);
+        isloggedin = sharedPref.getInt("loggedin", 0);
+
+        if(isloggedin == 0){
+            logout();
+        }
 
         displayMsg =(TextView)findViewById(R.id.displaymsg);
         Intent intent = getIntent();
@@ -51,6 +62,10 @@ public class userloggedin extends AppCompatActivity {
     }
 
     public void logout(){
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("loggedin", 0);
+        editor.commit();
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
