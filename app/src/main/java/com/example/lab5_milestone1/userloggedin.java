@@ -39,7 +39,7 @@ public class userloggedin extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
-                System.out.println("Logout");
+                logout();
                 return true;
             case R.id.addnote:
                 // do something
@@ -48,5 +48,10 @@ public class userloggedin extends AppCompatActivity {
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    public void logout(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
