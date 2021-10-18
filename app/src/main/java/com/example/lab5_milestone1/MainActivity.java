@@ -24,9 +24,8 @@ public class MainActivity extends AppCompatActivity {
         EditText usernameField = (EditText) findViewById(R.id.username);
         String username = usernameField.getText().toString();
 
-        editor.putString("username", username);
-        editor.putInt("loggedin", 1);
-        editor.commit();
+        editor.putString("username", username).apply();
+        editor.putInt("loggedin", 1).apply();
 
         loginTheUser(username);
     }
@@ -40,15 +39,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        sharedPref = getApplicationContext().getSharedPreferences("lab5preferences", Context.MODE_PRIVATE);
+        sharedPref = getApplicationContext().getSharedPreferences("com.example.lab5_milestone1", Context.MODE_PRIVATE);
         isloggedin = sharedPref.getInt("loggedin", 0);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         if (isloggedin == 1){
             username = sharedPref.getString("username", "");
             loginTheUser(username);
+        }else{
+            setContentView(R.layout.activity_main);
         }
     }
 }

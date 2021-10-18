@@ -11,32 +11,58 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class userloggedin extends AppCompatActivity {
 
     TextView displayMsg;
     SharedPreferences sharedPref;
     int isloggedin = 0;
+    public static ArrayList<Note> notes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_userloggedin);
 
-        sharedPref = getApplicationContext().getSharedPreferences("lab5preferences", Context.MODE_PRIVATE);
+
+        sharedPref = getApplicationContext().getSharedPreferences("com.example.lab5_milestone1", Context.MODE_PRIVATE);
         isloggedin = sharedPref.getInt("loggedin", 0);
 
         if(isloggedin == 0){
             logout();
         }
 
+        setContentView(R.layout.activity_userloggedin);
         displayMsg =(TextView)findViewById(R.id.displaymsg);
         Intent intent = getIntent();
         String str = intent.getStringExtra("username");
         displayMsg.setText("Welcome " + str + "!");
+
+        ArrayList<String> displayNotes = new ArrayList<>();
+        for (Note note : notes){
+            displayNotes.add(String.format("Title:%s\nDate%s", note.getTitle(), note.getDate()));
+        }
+
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, displayNotes);
+        ListView listView = (ListView) findViewById(R.id.notesListView);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), addNote.class);
+                intent.putExtra("noteid", position);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -53,18 +79,22 @@ public class userloggedin extends AppCompatActivity {
                 logout();
                 return true;
             case R.id.addnote:
-                // do something
-                System.out.println("Add note");
+                startAddNoteActivity();
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
     }
 
+    public void startAddNoteActivity(){
+        Intent intent = new Intent(this, addNote.class);
+        startActivity(intent);
+    }
+
     public void logout(){
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("loggedin", 0);
-        editor.commit();
+        editor.putInt("loggedin", 0).apply();
+        editor.remove("username").apply();
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".userloggedin">
+    tools:context=".addNote">
 
-    <TextView
-        android:id="@+id/displaymsg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hello Bud"
-        android:textSize="20dp"
+    <EditText
+        android:id="@+id/note"
+        android:layout_width="418dp"
+        android:layout_height="207dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Write here..."
+        android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -19,12 +21,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ListView
-        android:layout_width="409dp"
-        android:layout_height="702dp"
-        android:id="@+id/notesListView"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="28dp" />
-
-
+    <Button
+        android:id="@+id/saveNoteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:onClick="saveNote"
+        tools:layout_editor_absoluteX="149dp"
+        tools:layout_editor_absoluteY="667dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

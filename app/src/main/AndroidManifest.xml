@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lab5milestone1">
         <activity
+            android:name=".addNote"
+            android:exported="true" />
+        <activity
             android:name=".userloggedin"
             android:exported="true" />
         <activity
