@@ -8,23 +8,25 @@
 
     <TextView
         android:id="@+id/displaymsg"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello Bud"
+        android:layout_marginBottom="2dp"
+        android:text=""
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/notesListView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:layout_width="409dp"
-        android:layout_height="702dp"
         android:id="@+id/notesListView"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="28dp" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/displaymsg" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
