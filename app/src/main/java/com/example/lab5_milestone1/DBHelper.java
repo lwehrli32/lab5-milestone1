@@ -61,8 +61,13 @@ public class DBHelper {
             BufferedReader reader = new BufferedReader(inputStreamReader);
 
             fileContents = reader.readLine();
-            while (fileContents != null) {
-                fileContents = reader.readLine();
+            if (fileContents == null) {
+                while (fileContents != null) {
+                    fileContents = reader.readLine();
+                    if (fileContents != null) {
+                        break;
+                    }
+                }
             }
 
             inputStreamReader.close();
