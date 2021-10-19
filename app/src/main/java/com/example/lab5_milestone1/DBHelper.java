@@ -90,8 +90,16 @@ public class DBHelper {
         sqLiteDatabase.execSQL(query);
     }
 
-    public void updateNote(String title, String date, String content, String username){
+    public void updateNote(String title, String date, String content, String username, Context context) throws IOException {
         createTable();
+
+        String fileName = title + "*&*" + username + ".txt";
+        String fileContents = content;
+
+        try(FileOutputStream fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE)) {
+            fileOutputStream.write(fileContents.getBytes());
+        }
+
         String query = String.format("Update notes set date = '%s' where title = '%s' and username = '%s';", date, title, username);
         sqLiteDatabase.execSQL(query);
     }

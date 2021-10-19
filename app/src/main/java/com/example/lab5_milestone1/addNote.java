@@ -64,7 +64,12 @@ public class addNote extends AppCompatActivity {
             }
         }else{
             title = "NOTE_" + (noteid + 1);
-            dbHelper.updateNote(title, date, content, username);
+            try {
+                Context newcontext = getApplicationContext();
+                dbHelper.updateNote(title, date, content, username, newcontext);
+            }catch(IOException e){
+                System.out.println("Cannot save note");
+            }
         }
 
         sqLiteDatabase.close();
